@@ -1,14 +1,18 @@
 class Solution:
-    cache = {}
     def climbStairs(self, n: int) -> int:
 
-        if n == 0 or n == 1:
-            return 1 
+        def dp(n):
 
-        if n in self.cache :
-            return self.cache[n]
+            prev2 = 1
+            prev = 1
 
-        res = self.climbStairs(n - 1) + self.climbStairs(n - 2)
-        self.cache[n] = res 
+            for i in range(2,n+1):
+                cur = prev + prev2 
+                prev2 = prev 
+                prev = cur
 
-        return res             
+            return prev 
+
+        return dp(n)  
+
+        
