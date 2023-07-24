@@ -15,5 +15,6 @@ class Solution:
                 if matrix[i][j] != 0 :
                     if dr[i] == 0 or dc[j] == 0 :
                         matrix[i][j] = 0
-        return matrix
+        return matrix        
+
                       
