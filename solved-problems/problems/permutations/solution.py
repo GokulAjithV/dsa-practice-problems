@@ -1,16 +1,23 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
 
-        def permutations(ind,nums):
-            if(ind == len(nums)):
-                res.append(nums[:])
-                return
-
-            for i in range(ind,len(nums)):
-                nums[ind],nums[i] = nums[i],nums[ind]
-                permutations(ind+1,nums)
-                nums[ind],nums[i] = nums[i],nums[ind]
-
+        n = len(nums)
         res = []
-        permutations(0,nums)
-        return res            
+
+        def helper(i,visited,temp):
+
+            if(len(visited) == n):
+                res.append(temp[:])
+                return 
+
+            for i in range(n):
+
+                if(i not in visited):
+                    visited[i] = 1
+                    temp.append(nums[i])
+                    helper(i,visited,temp)
+                    visited.popitem()
+                    temp.pop()
+
+        helper(0,{},[])
+        return res           
