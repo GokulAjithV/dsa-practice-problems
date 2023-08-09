@@ -5,24 +5,22 @@ class Solution:
 
         n = len(candidates)
 
-        def helper(i,arr,summ):
+        def helper(i,temp,target):
 
-            if(target == summ):
-                res.append(arr[:])
-                return 
+            if(target == 0):
+                res.append(temp[:])
+                return
 
-            if(summ > target or i >= n):
-                return 
+            if(target < 0 or i == n):
+                return     
 
-            arr.append(candidates[i])
-            summ += candidates[i]
-            helper(i,arr,summ)
+            temp.append(candidates[i])
+            helper(i,temp,target - candidates[i])
 
-            arr.pop()
-            summ -= candidates[i]
-            helper(i+1,arr,summ)
+            temp.pop()
+            helper(i+1,temp,target)    
 
-        helper(0,[],0)
+        helper(0,[],target)
 
         return res
 
