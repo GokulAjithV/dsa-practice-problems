@@ -1,7 +1,9 @@
 class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
 
-        def dfs(i,buy):
+        n = len(prices)
+
+        def helper(i,buy):
 
             if(i == n):
                 return 0
@@ -11,18 +13,16 @@ class Solution:
 
             if(buy):
 
-                profit = max( -prices[i] + dfs(i+1,0), dfs(i+1,1))
+                profit = max(-prices[i]-fee+helper(i+1,0), helper(i+1,1))
 
-            else :
+            else:
 
-                profit = max( prices[i] - fee + dfs(i+1,1), dfs(i+1,0))
+                profit = max(prices[i]+helper(i+1,1), helper(i+1,0) )
 
             dp[i][buy] = profit 
 
-            return profit 
+            return dp[i][buy]
 
-        n = len(prices)
+        dp = [[-1]*2 for _ in range(n)]
 
-        dp = [[-1]*(2) for _ in range(n)]
-
-        return dfs(0,1)                        
+        return helper(0,1)                                            
