@@ -1,28 +1,28 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
 
-        def dfs(i,buy):
+        n = len(prices)
+
+        def helper(i,buy):
 
             if(i >= n):
                 return 0
 
             if(dp[i][buy] != -1):
-                return dp[i][buy]
+                return dp[i][buy]    
 
             if(buy):
 
-                profit = max( -prices[i] + dfs(i+1,0), dfs(i+1,1))
+                profit = max(-prices[i] + helper(i+1,0),helper(i+1,1))
 
-            else: 
+            else:
 
-                profit = max( prices[i] + dfs(i+2,1), dfs(i+1,0))
+                profit = max(prices[i] + helper(i+2,1),helper(i+1,0))
 
-            dp[i][buy] = profit 
+            dp[i][buy] = profit              
+   
+            return profit 
 
-            return dp[i][buy]
+        dp = [[-1]*2 for _ in range(n)]    
 
-        n = len(prices)
-
-        dp = [[-1]*(2) for _ in range(n+1)] 
-
-        return dfs(0,1)                   
+        return helper(0,1)                            
