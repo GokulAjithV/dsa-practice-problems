@@ -2,28 +2,29 @@ class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
 
         s2 = s[::-1]
+        n = len(s)
 
-        def helper(m,n):
+        def helper(i,j):
+
+            if(i < 0 or j < 0):
+                return 0
+
+            if(dp[i][j] != -1):
+                return dp[i][j]    
              
-            dp = [[-1]*(n+1) for i in range(m+1)]
+            if(s[i] == s2[j]):
+                return 1 + helper(i-1,j-1)
 
-            for i in range(m+1):
-                dp[i][0] = 0
+            left = helper(i,j-1)
+            right = helper(i-1,j)
 
-            for j in range(n+1):
-                dp[0][j] = 0
+            dp[i][j] = max(left,right)
 
-            for i in range(1,m+1):
-                for j in range(1,n+1):
+            return max(left,right) 
 
-                    if(s[i-1] == s2[j-1]):
-                        dp[i][j] = 1 + dp[i-1][j-1]
-                    
-                    else:
-                        dp[i][j] = max(dp[i-1][j],dp[i][j-1])
+        dp = [[-1]*(n+1) for _ in range(n+1)]       
 
-            return dp[m][n] 
-
-        return helper(len(s),len(s2))     
+        return helper(n-1,n-1)   
+        
 
 
