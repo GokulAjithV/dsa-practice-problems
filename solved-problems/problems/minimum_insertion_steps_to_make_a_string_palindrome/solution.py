@@ -2,6 +2,7 @@ class Solution:
     def minInsertions(self, s: str) -> int:
 
         s2 = s[::-1]
+        n = len(s)
 
         def helper(i,j):
 
@@ -12,14 +13,17 @@ class Solution:
                 return dp[i][j]
 
             if(s[i] == s2[j]):
-                dp[i][j] = 1 + helper(i-1,j-1)
+                return 1 + helper(i-1,j-1)
 
-            else :
-                dp[i][j] = max(helper(i-1,j),helper(i,j-1))
+            left = helper(i,j-1)
+            right = helper(i-1,j)
 
+            dp[i][j] = max(left,right)
 
             return dp[i][j]
 
-        dp = [[-1]*(len(s)) for _ in range(len(s))]    
+        dp = [[-1]*(n+1) for _ in range(n+1)]    
 
-        return len(s) - helper(len(s)-1,len(s)-1)                           
+        lps = helper(n-1,n-1)
+
+        return n - lps  
