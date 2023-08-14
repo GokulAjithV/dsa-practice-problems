@@ -5,9 +5,10 @@ class Solution:
         """
 
         for i in range(k):
-
             temp = nums.pop()
             nums.insert(0,temp)
+
+        return nums    
 
 
 
