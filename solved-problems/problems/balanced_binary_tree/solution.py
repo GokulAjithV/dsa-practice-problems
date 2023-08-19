@@ -7,23 +7,20 @@
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
 
-        def findHeight(node):
-
-            if(not node):
+        def findHeight(root):
+            if(not root):
                 return 0
 
-            lh = findHeight(node.left)
-            rh = findHeight(node.right)
-
-            if(lh < 0 or rh < 0):
-                return -1
+            lh = findHeight(root.left)
+            rh = findHeight(root.right)
 
             if(abs(lh-rh) > 1):
-                return -1                    
+                return -1
 
+            if(lh == -1 or rh == -1):
+                return -1         
 
+            return 1 + max(lh,rh)
 
-            return max(lh,rh) + 1
-
-        return findHeight(root) >= 0
+        return findHeight(root) >= 0     
 
