@@ -8,7 +8,6 @@ class Solution:
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
 
         def helper(vertical,level,root,dic):
-
             if(not root):
                 return 
 
@@ -16,21 +15,17 @@ class Solution:
             helper(vertical-1,level+1,root.left,dic)
             helper(vertical+1,level+1,root.right,dic)
 
-
-        def verticalTraversal(root):
+        def verticalOrder(root):
             dic = defaultdict(list)
-            helper(0,0,root,dic)
-
-            result = []
-
+            helper(0,0,root,dic) 
+            res = []
             for i in sorted(dic.keys()):
                 temp = []
-
                 for j in sorted(dic[i]):
                     temp.append(j[1])
 
-                result.append(temp)
+                res.append(temp[:])
 
-            return result 
+            return res
 
-        return verticalTraversal(root)                
+        return verticalOrder(root)                         
