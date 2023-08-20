@@ -7,25 +7,31 @@
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
 
+        if(not root):
+            return []
+
         ans = []
+        queue = [root]
 
-        def dfs(root,level):
+        while queue:
+            l = len(queue)
+            temp = []
+            for i in range(l):
+                node = queue.pop(0)
+                temp.append(node.val)
+                if(node.left):
+                    queue.append(node.left)
+                if(node.right):
+                    queue.append(node.right)
+            ans.append(temp[-1])
+        return ans     
 
-            nonlocal ans 
 
-            if(not root):
-                return 
 
-            if(level == len(ans)):
-                ans.append(root.val)
 
-            dfs(root.right,level+1)
-            dfs(root.left,level+1)
+                    
 
-                   
-
-        dfs(root,0)  
-        return ans   
+               
 
                         
 
