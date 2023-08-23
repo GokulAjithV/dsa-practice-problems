@@ -1,25 +1,19 @@
-class Solution:
-    def generate(self, numRows: int) -> List[List[int]]:
+class Solution(object):
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        res = [[1]]
 
-        ans = [[1]]
+        for i in range(1,numRows):
+            temp = []
+            last = res[-1]
+            for j in range(1,len(last)):
+                temp.append(last[j-1] + last[j])
 
-        for i in range(numRows-1):
+            temp[:] = [1] + temp + [1]
 
-            temp = [0] + ans[-1] + [0]
-            row = []
+            res.append(temp)
 
-            for j in range(len(ans[-1])+1):
-
-                row.append(temp[j]+temp[j+1])
-
-            ans.append(row)
-
-        return ans                
-
-
-
-
-        
-
-
-        
+        return res        
