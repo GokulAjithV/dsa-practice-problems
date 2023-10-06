@@ -1,26 +1,23 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-
+        
         res = []
+        def comb(i,temp,amount):
 
-        n = len(candidates)
-
-        def helper(i,temp,target):
-
-            if(target == 0):
-                res.append(temp[:])
-                return
-
-            if(target < 0 or i == n):
+            if(i == len(candidates)):
+                if(amount == 0):
+                    res.append(temp[:])
                 return     
 
-            temp.append(candidates[i])
-            helper(i,temp,target - candidates[i])
+            comb(i+1,temp,amount)
 
-            temp.pop()
-            helper(i+1,temp,target)    
-
-        helper(0,[],target)
-
+            if(amount >= candidates[i]):
+                temp.append(candidates[i])
+                comb(i,temp,amount - candidates[i])
+                temp.pop()
+        
+        comb(0,[],target)
         return res
+
+
 
